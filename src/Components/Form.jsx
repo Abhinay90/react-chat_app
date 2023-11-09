@@ -19,6 +19,7 @@ const Form = ({ setName }) => {
                         onChange={e => setValue(e.target.value)}
                         placeholder="Enter User-Name"
                         autoFocus
+                        required
                     />
                 </div>
                 {

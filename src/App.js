@@ -4,19 +4,18 @@ import Form from './Components/Form';
 import Typing from './Components/Typing';
 import { getDatabase, ref, push, set, onChildAdded } from "firebase/database";
 
-
-
 function App() {
   const [name, setName] = useState('');
   const [chatsBox, setChatsBox] = useState([]);
 
   const db = getDatabase();
-  const postChatsRef = ref(db, 'chatsBox');
+  const AllChatsRef = ref(db, 'chatsBox');
 
   const setMessage = (msg) => {
-    const newPostRef = push(postChatsRef);
-    set(newPostRef, {
-      name, massage: msg
+    const newChatRef = push(AllChatsRef);
+    set(newChatRef, {
+      name, 
+      massage: msg
     });
   }
 
@@ -25,12 +24,15 @@ function App() {
     const refSection = document.getElementsByClassName('section')[0];
     if (refSection)
       refSection.scrollTop = refSection.scrollHeight;
+    console.log(chatsBox);
   }
 
   useEffect(() => {
-    onChildAdded(postChatsRef, (data) => {
-      setChatsBox(
-        chatsBox => [...chatsBox, { userName: data.val().name, massege: data.val().massage }]
+    console.log('child add effact');
+    onChildAdded(AllChatsRef, (data) => {
+      console.log('childfunction');
+      console.log('data=',data);
+      setChatsBox((chatsBox)=> [...chatsBox, { userName: data.val().name, massege: data.val().massage }]
         );
       }); 
   }, []);
@@ -52,7 +54,7 @@ function App() {
 
           <section className='section'>
             {
-              chatsBox.map((chat,i) => {
+              chatsBox.map((chat) => {
                 return (
                   <div className={`chatBox ${chat.userName === name ? 'me' : ''}`}>
                     <p>

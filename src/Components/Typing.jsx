@@ -26,7 +26,7 @@ const Typing = ({ setMessage }) => {
                         <button onClick={handleOnClick}>
                             <i class="fa-solid fa-paper-plane"></i>
                         </button>
-                    ) : (null)
+                    ) : (null)//<i class="fa-solid fa-microphone"></i>
                 }
             </form>
         </>
